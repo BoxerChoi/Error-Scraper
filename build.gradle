@@ -33,6 +33,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	//h2 DB
     implementation 'com.h2database:h2'
+	//log4j
+	implementation 'org.apache.logging.log4j:log4j-core'
 
 }
 
