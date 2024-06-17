@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Log Monitoring Settings</title>
+</head>
+<body>
+    <h1>Log Monitoring Settings</h1>
+    <form th:action="@{/monitor/start}" th:object="${logMonitoringBean}" method="get">
+        <label for="filePaths">File Paths (comma separated):</label>
+        <input type="text" id="filePaths" th:field="*{filePaths}" />
+        <br />
+        <label for="keywordList">Keywords (comma separated):</label>
+        <input type="text" id="keywordList" th:field="*{keywordList}" />
+        <br />
+        <button type="submit">Start Monitoring</button>
+    </form>
+    <form th:action="@{/monitor/stop}" method="get">
+        <button type="submit">Stop Monitoring</button>
+    </form>
+</body>
+</html>

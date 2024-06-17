@@ -1,9 +1,7 @@
 package com.scraper.scraper.restApi.model;
 
 import java.util.UUID;
-import jakarta.persistence.Entity;
 
-@Entity
 public class CoffeeBean {
     private final String id;
     private String name;

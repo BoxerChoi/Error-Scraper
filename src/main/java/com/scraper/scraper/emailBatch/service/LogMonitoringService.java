@@ -1,8 +1,6 @@
-package com.scraper.scraper.batchApi.service;
+package com.scraper.scraper.emailBatch.service;
 
 import java.io.File;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -12,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import com.scraper.scraper.emailBatch.model.LogMonitoringBean;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,20 +30,17 @@ public class LogMonitoringService {
     private final Queue<Tailer> tailers = new ConcurrentLinkedQueue<>();
     private final Queue<Thread> threads = new ConcurrentLinkedQueue<>();
 
-    public String email_to = "darungchoi@gmail.com";
-    public List<String> filePaths = new ArrayList<String>();
-    public List<String> keywordList = new ArrayList<String>();
+    // @PostConstruct - 랜더링 후 최초 1회만 실행
+    public void startMonitoring(LogMonitoringBean logMonitoringBean) {
 
-    // @PostConstruct
-    public void startMonitoring() {
-        logger.info("#startMonitoring");
-        keywordList.add("error");
-        keywordList.add("exception");
-        filePaths.add("D:/spring-boot/testLog.log");
-        filePaths.add("D:/spring-boot/testLog2.log");
+        // 수신자 받아 오기
+        String mailReceiver = logMonitoringBean.getMailReceiver();
+
+        logger.info("#logMonitoringBean 1 : " + logMonitoringBean.getFilePaths());
+        logger.info("#logMonitoringBean 2: " + logMonitoringBean.getKeywordList());
 
         // Queue에 다중 파일경로 추가
-        for (String filePath : filePaths) {
+        for (String filePath : logMonitoringBean.getFilePaths()) {
             QueueFilePaths.offer(filePath);
         }
 
@@ -53,9 +50,9 @@ public class LogMonitoringService {
                 @Override
                 public void handle(String line) {
                     String lowerCaseLine = line.toLowerCase(); // 모든 문자열을 소문자로 변환
-                    for (String keyword : keywordList) {
+                    for (String keyword : logMonitoringBean.getKeywordList()) {
                         if (lowerCaseLine.contains(keyword)) {
-                            sendEmailAlert(line);
+                            sendEmailAlert(line, mailReceiver);
                             break; // 하나의 키워드만 일치하면 이메일을 보내고 종료
                         }
                     }
@@ -86,10 +83,10 @@ public class LogMonitoringService {
 
     }
 
-    private void sendEmailAlert(String logMessage) {
+    private void sendEmailAlert(String logMessage, String mailReceiver) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setTo(email_to);
+            message.setTo(mailReceiver);
             message.setSubject("Error Alert");
             message.setText("An error occurred:\n\n" + logMessage);
             mailSender.send(message);
