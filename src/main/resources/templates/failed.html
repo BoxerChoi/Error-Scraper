@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Success</title>
+    <title>Operation Failed</title>
 </head>
 <body>
-    <h1>Success</h1>
+    <h1>Operation Failed</h1>
     <h1>The current number of active monitoring threads is <span th:text="${activeThreadCount}"></span></h1>
-    <p>Log monitoring operation completed successfully.</p>
+    <p>Log monitoring operation failed with <span id="reason" th:text="${reason}"></span></span></p>
     <p><a href="/monitor/settings">Click here</a> to retrieve setting page</p>
 </body>
+
 </html>

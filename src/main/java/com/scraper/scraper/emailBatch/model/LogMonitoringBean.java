@@ -1,8 +1,12 @@
 package com.scraper.scraper.emailBatch.model;
 
 import java.util.List;
+
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 
+@Component
 public class LogMonitoringBean {
 
     // Mailing 또는 Report 파일(.txt)
@@ -20,14 +24,18 @@ public class LogMonitoringBean {
     // 키워드 (복수 설정 가능)
     public List<String> keywordList = new ArrayList<String>();
 
+    // 스레드 개수
+    public int activeThreadCount;
+
+    // 실패여부 (기본 값 : Y)
+    public String failYn = "Y";
+
+    // 파라미터 플래그 (N : 필수 파라미터 누락)
+    public String paramFlag;
+
     // 생성자 1
     public LogMonitoringBean() {
     }
-
-    // keywordList.add("error");
-    // keywordList.add("exception");
-    // filePaths.add("D:/spring-boot/testLog.log");
-    // filePaths.add("D:/spring-boot/testLog2.log");
 
     // 생성자 2
     public LogMonitoringBean(String type, String resultFilePath, String mailReceiver, List<String> filePaths,
@@ -80,4 +88,27 @@ public class LogMonitoringBean {
         this.keywordList = keywordList;
     }
 
+    public int getActiveThreadCount() {
+        return this.activeThreadCount;
+    }
+
+    public void setActiveThreadCount(int activeThreadCount) {
+        this.activeThreadCount = activeThreadCount;
+    };
+
+    public String getFailYn() {
+        return this.failYn;
+    }
+
+    public void setFailYn(String failYn) {
+        this.failYn = failYn;
+    }
+
+    public String getParamFlag() {
+        return this.paramFlag;
+    }
+
+    public void setParamFlag(String paramFlag) {
+        this.paramFlag = paramFlag;
+    }
 }

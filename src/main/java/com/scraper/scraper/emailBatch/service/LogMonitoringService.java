@@ -25,20 +25,19 @@ public class LogMonitoringService {
     @Autowired
     private JavaMailSender mailSender;
 
+    @Autowired
+    private LogMonitoringBean monitorBean;
+
     // 멀티 스레드 환경에서는 스레드 간 동기화 문제가 발생할 수 있으므로 큐와 ConcurrentLinkedQueue 사용
     private final Queue<String> QueueFilePaths = new ConcurrentLinkedQueue<>();
     private final Queue<Tailer> tailers = new ConcurrentLinkedQueue<>();
     private final Queue<Thread> threads = new ConcurrentLinkedQueue<>();
 
     // @PostConstruct - 랜더링 후 최초 1회만 실행
-    public void startMonitoring(LogMonitoringBean logMonitoringBean) {
+    public LogMonitoringBean startMonitoring(LogMonitoringBean logMonitoringBean) {
 
         // 수신자 받아 오기
         String mailReceiver = logMonitoringBean.getMailReceiver();
-
-        logger.info("#logMonitoringBean 1 : " + logMonitoringBean.getFilePaths());
-        logger.info("#logMonitoringBean 2: " + logMonitoringBean.getKeywordList());
-
         // Queue에 다중 파일경로 추가
         for (String filePath : logMonitoringBean.getFilePaths()) {
             QueueFilePaths.offer(filePath);
@@ -67,9 +66,17 @@ public class LogMonitoringService {
             threads.offer(thread);
 
         }
+
+        logger.info("threads.size() : " + threads.size());
+        // Thread Count Update
+        monitorBean.setActiveThreadCount(threads.size());
+        monitorBean.setFailYn("N");
+
+        return monitorBean;
     }
 
-    public void stopMonitoring() {
+    // 모니터링 작동 전면 중지
+    public LogMonitoringBean stopMonitoring() {
 
         for (Tailer tailer : tailers) {
             tailer.stop();
@@ -81,10 +88,16 @@ public class LogMonitoringService {
         threads.clear();
         tailers.clear();
 
+        monitorBean.setFailYn("N");
+        monitorBean.setActiveThreadCount(0);
+        return monitorBean;
     }
 
     private void sendEmailAlert(String logMessage, String mailReceiver) {
         try {
+            logger.info("#mailReceiver : " + mailReceiver);
+            logger.info("#logMessage : " + logMessage);
+
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(mailReceiver);
             message.setSubject("Error Alert");

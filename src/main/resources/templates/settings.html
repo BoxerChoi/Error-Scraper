@@ -2,20 +2,84 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Log Monitoring Settings</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1>Log Monitoring Settings</h1>
-    <form th:action="@{/monitor/start}" th:object="${logMonitoringBean}" method="get">
-        <label for="filePaths">File Paths (comma separated):</label>
-        <input type="text" id="filePaths" th:field="*{filePaths}" />
-        <br />
-        <label for="keywordList">Keywords (comma separated):</label>
-        <input type="text" id="keywordList" th:field="*{keywordList}" />
-        <br />
+    <h1>The current number of active monitoring threads is <span th:text="${activeThreadCount}"></span></h1>
+    
+    <h3> Option </h3>
+    <select id="select_option">
+        <option value="option_email">Email Alert</option>
+        <option value="option_report">Report File(.txt)</option>
+    </select>
+
+    <h3> Parameters </h3>
+    <form id="startForm" th:action="@{/monitor/start}" th:object="${logMonitoringBean}" method="post">
+        <div id="filePathContainer">
+            <label for="filePaths1">FilePath 1</label>
+            <input type="text" id="filePaths1" name="filePaths">
+        </div>
+        <button type="button" id="filePathAddBtn">Add</button>
+        <br>
+        <div id="keywordContainer">
+            <label for="keywordList1">Keyword 1</label>
+            <input type="text" id="keywordList1" name="keywordList">
+        </div>
+        <button type="button" id="keywordAddBtn">Add</button>
+        <br><br>
+        <label for="mailReceiver">Mail receiver(Email option only)</label>
+        <input type="text" id="mailReceiver" name="mailReceiver">
+        <br>
+        <label for="resultFilePath">Result File Path(Report option only)</label>
+        <input type="text" id="resultFilePath" name="resultFilePath">
+        <br><br>
         <button type="submit">Start Monitoring</button>
+        <br>
     </form>
-    <form th:action="@{/monitor/stop}" method="get">
+    <br>
+    <form id="stopForm" th:action="@{/monitor/stop}" method="post">
         <button type="submit">Stop Monitoring</button>
     </form>
+
+    <script>
+        $(document).ready(function() {
+            let inputCount = 1;
+            
+        //키워드 & 파일경로 추가
+            $('#keywordAddBtn').click(function() {
+                inputCount++;
+                const newInput = `<br><label for="keywordList${inputCount}">Keyword ${inputCount}</label><input type="text" id="keywordList${inputCount}" name="keywordList">`;
+                $('#keywordContainer').append(newInput);
+            });
+        });
+
+        $(document).ready(function() {
+            let inputCount = 1;
+            
+            $('#filePathAddBtn').click(function() {
+                inputCount++;
+                const newInput = `<br><label for="filePaths${inputCount}">FilePath ${inputCount}</label><input type="text" id="filePaths${inputCount}" name="filePaths">`;
+                $('#filePathContainer').append(newInput);
+            });
+        });
+
+        // Type 에 따른 Controller 설정
+        $(document).ready(function() {
+        $('#select_option').change(function() {
+            var selectedOption = $(this).val();
+            // 선택한 옵션에 따라 액션 URL 설정
+            switch(selectedOption) {
+                case 'option_email':
+                    $('#startForm').attr('action', '/monitor/start');
+                    break;
+                case 'option_report':
+                    $('#startForm').attr('action', '/report/start');
+                    break;
+                default:
+                    $('#startForm').attr('action', '/monitor/start');
+            }
+        });
+    });
+    </script>
 </body>
 </html>

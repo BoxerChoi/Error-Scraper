@@ -15,6 +15,7 @@ Lombok Annotations Support for VS Code (v1.1.0)
 Java Language Support (v0.2.46)  
 Gradle for Java (v3.13.5)  
 Java Snippets (v0.0.1)
+Getter and Setter Generator (v1.0.3)
 
 ### 3. Spring Boot initializer URL
 
