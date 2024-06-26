@@ -41,3 +41,8 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+tasks.named('bootJar') {
+    archiveFileName = 'Error-Scarper-0.0.1.jar'
+    destinationDirectory = file("./")
+}
