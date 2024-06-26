@@ -29,6 +29,6 @@ Gradle for Java (v3.13.5)
 Java Snippets (v0.0.1)
 Getter and Setter Generator (v1.0.3)
 
-### 4. Spring Boot initializer URL
+## 4. Spring Boot initializer URL
 
 https://start.spring.io/
