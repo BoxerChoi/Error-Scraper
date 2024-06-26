@@ -44,5 +44,5 @@ tasks.named('test') {
 
 tasks.named('bootJar') {
     archiveFileName = 'Error-Scarper-0.0.1.jar'
-    destinationDirectory = file("./")
+    destinationDirectory = file("./executableJar/")
 }
