@@ -1,6 +1,18 @@
-### 1. IDE Tool : Visual Studio Code
+# Error-Scraper specification
 
-### 2. Extension Program
+## 1. About Error-Scraper
+
+The best of the best log tracking assistant that provides tailing and alert mailing for your log files.  
+This program supports the functionality of searching for specific keywords within a large number of log files.
+
+## 2. Development environment
+
+- IDE : Visual Studio Code
+- Git Tools : Git bash
+- JDK : Open JDK-17.0.2
+- Gradle
+
+## 3. IDE Extension Program(VS Code)
 
 Installed Extesion program on VSCode  
 Spring Boot Extension Pack (v0.2.1)  
@@ -17,6 +29,6 @@ Gradle for Java (v3.13.5)
 Java Snippets (v0.0.1)
 Getter and Setter Generator (v1.0.3)
 
-### 3. Spring Boot initializer URL
+### 4. Spring Boot initializer URL
 
 https://start.spring.io/
