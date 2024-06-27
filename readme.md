@@ -35,10 +35,10 @@ Getter and Setter Generator
 - Download below executable files  
   https://github.com/BoxerChoi/Error-Scraper/blob/main/executableJar/Error-Scarper-0.0.1.jar  
   https://github.com/BoxerChoi/Error-Scraper/blob/main/executableJar/mail.application.properties
-- Fill out your smtp mail server information from mail.application.properties
-  spring.mail.host= #smtp.gmail.com(gmail example)
-  spring.mail.port= #587
-  spring.mail.username= #{your_mail_address}@gmail.com
+- Fill out your smtp mail server information from mail.application.properties  
+  spring.mail.host= #smtp.gmail.com(gmail example)  
+  spring.mail.port= #587  
+  spring.mail.username= #{your_mail_address}@gmail.com  
   spring.mail.password= #{app_password}
 - Run with below comman line  
   java -jar Error-Scarper-0.0.1.jar --spring.config.additional-location=file:./mail.application.properties
