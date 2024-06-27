@@ -30,6 +30,14 @@ Gradle for Java
 Java Snippets  
 Getter and Setter Generator
 
-## 4. Spring Boot initializer URL
+## 4. How to use
+
+- Download below executable files  
+  https://github.com/BoxerChoi/Error-Scraper/blob/main/executableJar/Error-Scarper-0.0.1.jar  
+  https://github.com/BoxerChoi/Error-Scraper/blob/main/executableJar/mail.application.properties
+- Run with below comman line  
+  java -jar Error-Scarper-0.0.1.jar --spring.config.additional-location=file:./mail.application.properties
+
+## 5. Spring Boot initializer URL
 
 https://start.spring.io/
