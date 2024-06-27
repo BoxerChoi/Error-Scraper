@@ -17,4 +17,5 @@
 .gradle/buildOutputCleanup/outputFiles.bin
 .gradle/vcs-1/gc.properties
 src/main/resources/application.properties
+bin/main/application.properties
 build/*
