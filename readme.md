@@ -42,6 +42,7 @@ Getter and Setter Generator
   spring.mail.password= #{app_password}
 - Run with below comman line  
   java -jar Error-Scarper-0.0.1.jar --spring.config.additional-location=file:./mail.application.properties
+- Type address : "localhost:8080" on your web browser
 
 ## 5. Spring Boot initializer URL
 
