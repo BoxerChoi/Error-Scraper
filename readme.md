@@ -3,7 +3,7 @@
 ## 1. About Error-Scraper
 
 The best of the best log tracking assistant that provides tailing and alert mailing for your log files.  
-This program supports the functionality of searching for specific keywords within a large number of log files.
+This program also supports the functionality of searching for specific keywords within a large number of log files.
 
 ## 2. Development environment
 
