@@ -3,6 +3,7 @@
 <head>
     <title>Log Monitoring Settings</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/settings.css">
 </head>
 <body>
     <h1>The current number of active monitoring threads is <span th:text="${activeThreadCount}"></span></h1>
@@ -16,13 +17,13 @@
     <h3> Parameters </h3>
     <form id="startForm" th:action="@{/monitor/start}" th:object="${logMonitoringBean}" method="post">
         <div id="filePathContainer">
-            <label for="filePaths1">FilePath 1</label>
+            <label for="filePaths1">FilePath</label>
             <input type="text" id="filePaths1" name="filePaths">
         </div>
         <button type="button" id="filePathAddBtn">Add</button>
         <br>
         <div id="keywordContainer">
-            <label for="keywordList1">Keyword 1</label>
+            <label for="keywordList1">Keyword</label>
             <input type="text" id="keywordList1" name="keywordList">
         </div>
         <button type="button" id="keywordAddBtn">Add</button>
